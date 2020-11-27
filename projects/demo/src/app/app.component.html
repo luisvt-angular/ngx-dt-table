@@ -1,0 +1,29 @@
+<mat-sidenav-container>
+  <mat-sidenav [mode]="sidenavMenuCtrl.isMobile ? 'over' : 'side'"
+               [opened]="!sidenavMenuCtrl.isMobile || sidenavMenuCtrl.opened"
+               (openedChange)="sidenavMenuCtrl.opened = $event">
+    <mat-toolbar>Angular Material Extended</mat-toolbar>
+    <mat-nav-list *ngFor="let item of routesData | keys" dense>
+      <a mat-list-item [routerLink]="item.url" routerLinkActive="active" (click)="sidenavMenuCtrl.opened = false">
+        {{routesData[item].name}}
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <section>
+    <mat-toolbar color="primary">
+      <matx-menu-button></matx-menu-button>
+      {{routesData[currentUrl]?.name}}
+    </mat-toolbar>
+    <mat-tab-group>
+      <mat-tab label="Demo">
+        <router-outlet></router-outlet>
+      </mat-tab>
+      <mat-tab label="HTML">
+        <pre><code *ngIf="currentUrl" [highlight]="routesData[currentUrl].html" lineNumbers="true"></code></pre>
+      </mat-tab>
+      <mat-tab label="TS">
+        <pre><code *ngIf="currentUrl" [highlight]="routesData[currentUrl].ts" lineNumbers="true"></code></pre>
+      </mat-tab>
+    </mat-tab-group>
+  </section>
+</mat-sidenav-container>

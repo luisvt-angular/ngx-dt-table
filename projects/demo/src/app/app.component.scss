@@ -1,0 +1,33 @@
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 300px;
+}
+
+.mat-list-item.active {
+  background-color: #3f51b5;
+  color: white;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+mat-tab-group {
+  height: calc(100% - 64px);
+
+  ::ng-deep {
+    .mat-tab-body-wrapper {
+      height: 100%;
+    }
+
+    .mat-tab-body-content {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+}
