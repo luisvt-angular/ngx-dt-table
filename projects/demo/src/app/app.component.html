@@ -2,9 +2,9 @@
   <mat-sidenav [mode]="sidenavMenuCtrl.isMobile ? 'over' : 'side'"
                [opened]="!sidenavMenuCtrl.isMobile || sidenavMenuCtrl.opened"
                (openedChange)="sidenavMenuCtrl.opened = $event">
-    <mat-toolbar>Angular Material Extended</mat-toolbar>
+    <mat-toolbar color="primary">ngx-dt-table</mat-toolbar>
     <mat-nav-list *ngFor="let item of routesData | keys" dense>
-      <a mat-list-item [routerLink]="item.url" routerLinkActive="active" (click)="sidenavMenuCtrl.opened = false">
+      <a mat-list-item [routerLink]="item" routerLinkActive="active" (click)="sidenavMenuCtrl.opened = false">
         {{routesData[item].name}}
       </a>
     </mat-nav-list>

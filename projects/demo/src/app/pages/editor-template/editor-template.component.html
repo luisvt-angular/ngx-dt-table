@@ -1,0 +1,56 @@
+<dt-table [data]="players" editable>
+  <dt-column field="id" header="Id" width="25px"></dt-column>
+  <dt-column field="name" header="Name">
+    <ng-template dtEditor let-row>
+    <matx-input [formControl]="row.form.controls.name"
+                required hideRequiredMarker></matx-input>
+    </ng-template>
+  </dt-column>
+  <dt-column field="age" header="Age">
+    <ng-template dtEditor let-row>
+      <matx-input type="number" [formControl]="row.form.controls.age"
+                  required hideRequiredMarker></matx-input>
+    </ng-template>
+  </dt-column>
+  <dt-column field="club" header="Club">
+    <ng-template dtEditor let-row>
+      <matx-select [formControl]="row.form.controls.club"
+                   [options]="['Barcelona', 'Real Madrid', 'Liverpool', 'Borussia Dortmund',
+                               'Manchester United', 'Manchester City', 'Juventus']"
+                  required hideRequiredMarker></matx-select>
+    </ng-template>
+  </dt-column>
+  <dt-column field="national" header="National">
+    <ng-template dtEditor let-row>
+      <matx-select [formControl]="row.form.controls.national"
+                   [options]="['Argentina', 'Brazil', 'Portugal', 'England',
+                               'Germany', 'France', 'Holland', 'Spain', 'Italy']"
+                   required hideRequiredMarker></matx-select>
+    </ng-template>
+  </dt-column>
+  <dt-column frozen="right" width="40px" [ngStyle]="{'padding-left': 0, 'padding-right': 0, 'min-width': '40px'}">
+    <ng-template dtCell let-row let-table=table>
+      <button type="button" mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <ng-template [ngIf]="!row.editing" [ngIfElse]="editing">
+          <button mat-menu-item (click)="table.startEditing(row)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+        </ng-template>
+        <ng-template #editing>
+          <button mat-menu-item (click)="table.submitRow(row)">
+            <mat-icon>save</mat-icon>
+            <span>Save</span>
+          </button>
+          <button mat-menu-item (click)="table.resetRow(row)">
+            <mat-icon>cancel</mat-icon>
+            <span>Cancel</span>
+          </button>
+        </ng-template>
+      </mat-menu>
+    </ng-template>
+  </dt-column>
+</dt-table>

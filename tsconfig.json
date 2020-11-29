@@ -17,8 +17,8 @@
     ],
     "paths": {
       "ngx-dt-table": [
-        "projects/ngx-dt-table/public-api",
-        "projects/ngx-dt-table"
+        "projects/ngx-dt-table/src/public-api",
+        "projects/ngx-dt-table/src"
       ]
     }
   }

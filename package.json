@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build_demo": "ng build --prod --aot --base-href=/ngx-dt-table/ --output-path=docs",
+    "prepublish_lib": "ng build --prod ngx-dt-table && cp README.md dist/ngx-dt-table",
+    "publish_lib": "cd dist/ngx-dt-table && pnpm publish",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -22,6 +24,8 @@
     "@angular/platform-browser-dynamic": "~11.0.1",
     "@angular/router": "~11.0.1",
     "angular-material-extended": "^0.11.1",
+    "delay": "^4.4.0",
+    "dot-prop": "^6.0.1",
     "highlight.js": "^10.4.0",
     "highlightjs-line-numbers.js": "^2.8.0",
     "ngx-highlightjs": "^4.1.2",

@@ -1,0 +1,8 @@
+<button mat-raised-button color="primary" (click)="table.print()">Print</button>
+<dt-table #table [data]="players">
+  <dt-column field="id" header="Id"></dt-column>
+  <dt-column field="name" header="Name"></dt-column>
+  <dt-column field="age" header="Age"></dt-column>
+  <dt-column field="club" header="Club"></dt-column>
+  <dt-column field="national" header="National"></dt-column>
+</dt-table>

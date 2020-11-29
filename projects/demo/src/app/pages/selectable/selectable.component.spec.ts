@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgxDtTableComponent } from './ngx-dt-table.component';
+import { SelectableComponent } from './selectable.component';
 
-describe('NgxDtTableComponent', () => {
-  let component: NgxDtTableComponent;
-  let fixture: ComponentFixture<NgxDtTableComponent>;
+describe('SelectableComponent', () => {
+  let component: SelectableComponent;
+  let fixture: ComponentFixture<SelectableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NgxDtTableComponent ]
+      declarations: [ SelectableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NgxDtTableComponent);
+    fixture = TestBed.createComponent(SelectableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,89 @@
+$mat-header-row-height: 56px;
+$mat-row-height: 48px;
+$mat-row-horizontal-padding: 24px;
+
+:host {
+  display: block;
+  overflow: auto;
+}
+
+.matx-table-frozen-left {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  background-color: white;
+  border-right: 2px solid rgba(0, 0, 0, 0.12);
+}
+
+.dt-scrollable-columns {
+  flex: 1;
+  display: flex;
+}
+
+.dt-table-frozen-right {
+  position: sticky;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  background-color: white;
+  border-left: 2px solid rgba(0, 0, 0, 0.12);
+}
+
+.mat-header-row {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: $mat-header-row-height;
+}
+
+.mat-row, .mat-detail-row, .mat-footer-row {
+  min-height: $mat-row-height;
+}
+
+.mat-row, .mat-header-row, .mat-footer-row {
+  display: flex;
+
+  // Workaround for https://goo.gl/pFmjJD in IE 11. Adds a pseudo
+  // element that will stretch the row the correct height. See:
+  // https://connect.microsoft.com/IE/feedback/details/802625
+  &::after {
+    display: inline-block;
+    min-height: inherit;
+    content: '';
+  }
+}
+
+.mat-cell, .mat-header-cell, .mat-footer-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  word-wrap: break-word;
+  min-height: inherit;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.mat-header-cell {
+  border-bottom: 3px solid rgba(0, 0, 0, 0.12);
+  div {
+    flex: 1;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+.mat-cell, .mat-detail-row {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.dt-cell-select {
+  flex: 0 0 16px;
+}
+
+.dt-cell-expander {
+  min-width: 40px;
+  padding-left: 0;
+  padding-right: 0;
+}

@@ -1,0 +1,15 @@
+<dt-table [data]="players">
+  <dt-column field="id" header="Id"></dt-column>
+  <dt-column field="name" header="Name"></dt-column>
+  <dt-column field="age" header="Age"></dt-column>
+  <dt-column field="club" header="Club"></dt-column>
+  <dt-column field="national" header="National"></dt-column>
+  <button *dtExpandRowButton="let row" mat-icon-button type="button" (click)="row.expanded = !row.expanded">
+    <mat-icon *ngIf="!row.expanded">keyboard_arrow_right</mat-icon>
+    <mat-icon *ngIf="!!row.expanded">keyboard_arrow_down</mat-icon>
+  </button>
+  <ng-template dtRowDetail let-player>
+    <h2>{{player.name}}</h2>
+    <p><b>Age: </b><i>{{player.id}}</i>, <b>Club: </b><i>{{player.club}}</i>, <b>National: </b><i>{{player.national}}</i></p>
+  </ng-template>
+</dt-table>

@@ -1,0 +1,19 @@
+<dt-table [data]="posts$" style="height: 500px" (sort)="getPosts($event)">
+  <dt-column field="id" header="Id" width="20px"></dt-column>
+  <dt-column header="Title / Body" sortBy="title">
+    <div *dtCell="let post = item">
+      <h2>{{post.title}}</h2>
+      <p>{{post.body}}</p>
+    </div>
+  </dt-column>
+  <dt-column field="user.username" header="Username" width="100px" sortable></dt-column>
+  <dt-column field="user.email" header="Email" width="200px" sortable></dt-column>
+  <ng-template dtSortColumnIcon let-column>
+    <mat-icon *ngIf="column.sortable && column.sortDirection === 1">north</mat-icon>
+    <mat-icon *ngIf="column.sortable && column.sortDirection === -1">south</mat-icon>
+  </ng-template>
+</dt-table>
+<mat-paginator [length]="page.total"
+               [pageSize]="page.size"
+               [pageSizeOptions]="[10, 25, 50]"
+               (page)="getPosts($event)"></mat-paginator>

@@ -30,7 +30,10 @@
             "styles": [
               "projects/demo/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "dot-prop"
+            ]
           },
           "configurations": {
             "production": {

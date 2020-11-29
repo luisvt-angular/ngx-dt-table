@@ -4,6 +4,7 @@
     "directive-selector": [
       true,
       "attribute",
+      "element",
       "dt",
       "camelCase"
     ],

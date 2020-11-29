@@ -10,6 +10,8 @@ dependencies:
   '@angular/platform-browser-dynamic': 11.0.2_dbc3c71ad0cfc53b2c41b690d1e3b656
   '@angular/router': 11.0.2_0f84c03045972e1e7b7c40784a2aec25
   angular-material-extended: 0.11.1_4a0a9b4311bd50a68e644fff8a283764
+  delay: 4.4.0
+  dot-prop: 6.0.1
   highlight.js: 10.4.0
   highlightjs-line-numbers.js: 2.8.0
   ngx-highlightjs: 4.1.2_453b150beb2d1991c7e8d4edcf6e0dc8
@@ -3543,6 +3545,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-QwGuEUouP2kVwQenAsOof5Fv8K9t3D8Ca8NxcXKrIpEHjTXK5J2nXLdP+ALI1cgv8wj7KuwBhTwBkOZSJKM5XQ==
+  /delay/4.4.0:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-txgOrJu3OdtOfTiEOT2e76dJVfG/1dz2NZ4F0Pyt4UGZJryssMRp5vdM5wQoLwSOBNdrJv3F9PAhp/heqd7vrA==
   /delayed-stream/1.0.0:
     dev: true
     engines:
@@ -3665,6 +3673,14 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==
+  /dot-prop/6.0.1:
+    dependencies:
+      is-obj: 2.0.0
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-tE7ztYzXHIeyvc7N+hR3oi7FIbf/NIjVP9hmAt3yMXzrQ072/fpjGLx2GxNxGxUl5V73MEqYzioOMoVhGMJ5cA==
   /duplexify/3.7.1:
     dependencies:
       end-of-stream: 1.4.4
@@ -5216,7 +5232,6 @@ packages:
     resolution:
       integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
   /is-obj/2.0.0:
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -9880,6 +9895,8 @@ specifiers:
   '@types/node': ^12.11.1
   angular-material-extended: ^0.11.1
   codelyzer: ^6.0.0
+  delay: ^4.4.0
+  dot-prop: ^6.0.1
   highlight.js: ^10.4.0
   highlightjs-line-numbers.js: ^2.8.0
   jasmine-core: ~3.6.0

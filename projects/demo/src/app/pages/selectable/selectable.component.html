@@ -1,0 +1,11 @@
+<dt-table [data]="players" selectable>
+  <mat-checkbox *dtSelectAll="let table" [checked]="table.allSelected || table.someSelected"
+                [indeterminate]="table.someSelected" (change)="table.toggleSelectAll($event)"></mat-checkbox>
+  <mat-checkbox *dtSelectRow="let table; let row = row" [checked]="table.isRowSelected(row)"
+                (change)="table.toggleSelectRow(row, $event)"></mat-checkbox>
+  <dt-column field="id" header="Id"></dt-column>
+  <dt-column field="name" header="Name"></dt-column>
+  <dt-column field="age" header="Age"></dt-column>
+  <dt-column field="club" header="Club"></dt-column>
+  <dt-column field="national" header="National"></dt-column>
+</dt-table>
