@@ -1,4 +1,5 @@
-<dt-table [data]="posts$" style="height: 500px" (sort)="getPosts($event)">
+<dt-table [data]="posts$" style="height: 500px" (sort)="getPosts($event)" [loading]="loading">
+  <mat-progress-bar *dtLoading mode="indeterminate"></mat-progress-bar>
   <dt-column field="id" header="Id" width="20px"></dt-column>
   <dt-column header="Title / Body" sortBy="title">
     <div *dtCell="let post = item">

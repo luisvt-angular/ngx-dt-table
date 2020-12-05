@@ -26,6 +26,7 @@ import { DtExpandRowButtonDirective } from './dt-expand-row-button.directive';
 import { DtSortColumnIconDirective } from './dt-sort-column-icon.directive';
 import { DtSelectAllDirective } from './dt-select-all.directive';
 import { DtSelectRowDirective } from './dt-select-row.directive';
+import { DtLoadingDirective } from './dt-loading.directive';
 
 @Component({
   selector: 'dt-table',
@@ -164,14 +165,30 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
    * Template used to create the select all checkbox
    *
    * @example
-   * <ng-template dtSortColumnIcon let-column>
-   *   <mat-icon *ngIf="column.sortable && column.sortDirection === 1">north</mat-icon>
-   *   <mat-icon *ngIf="column.sortable && column.sortDirection === -1">south</mat-icon>
-   * </ng-template>
+   * <mat-checkbox *dtSelectAll="let table" [checked]="table.allSelected || table.someSelected"
+   *   [indeterminate]="table.someSelected" (change)="table.toggleSelectAll($event)"></mat-checkbox>
    */
   @ContentChild(DtSelectAllDirective, {read: TemplateRef}) selectAllTemplate: TemplateRef<any>;
 
+  /**
+   * Template used to create the select row checkbox
+   *
+   * @example
+   * <mat-checkbox *dtSelectRow="let table; let row = row" [checked]="table.isRowSelected(row)"
+   *   (change)="table.toggleSelectRow(row, $event)"></mat-checkbox>
+   */
   @ContentChild(DtSelectRowDirective, {read: TemplateRef}) selectRowTemplate: TemplateRef<any>;
+
+  /** Shows/Hides the loading element */
+  @Input() loading: boolean;
+
+  /**
+   * Template used to create the loading element
+   *
+   * @example
+   *   <mat-progress-bar *dtLoading mode="indeterminate"></mat-progress-bar>
+   */
+  @ContentChild(DtLoadingDirective, {read: TemplateRef}) loadingTemplate: TemplateRef<any>;
 
   ngAfterContentChecked(): void {
     // console.log('this.columns: ', this.columns);

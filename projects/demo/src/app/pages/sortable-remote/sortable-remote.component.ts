@@ -32,6 +32,7 @@ export class SortableRemoteComponent implements OnInit {
     size: 10,
     number: 1
   };
+  loading = true;
 
   constructor(private http: HttpClient) { }
 
@@ -50,6 +51,7 @@ export class SortableRemoteComponent implements OnInit {
         sort._order = (event as DtSortEvent).sortDirection;
       }
     }
+    this.loading = true;
     this.posts$ = this.http.get<Post[]>('https://jsonplaceholder.typicode.com/posts', {
       observe: 'response',
       params: {
@@ -59,6 +61,7 @@ export class SortableRemoteComponent implements OnInit {
         ...sort
       }
     }).pipe(map(resp => {
+      this.loading = false;
       this.page.total = Number(resp.headers.get('x-total-count'));
       return resp.body;
     }));

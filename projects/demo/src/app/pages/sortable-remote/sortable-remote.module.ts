@@ -7,6 +7,7 @@ import { DtTableModule } from 'ngx-dt-table';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
         HttpClientModule,
         DtTableModule,
         MatPaginatorModule,
-        MatIconModule
+        MatIconModule,
+        MatProgressBarModule
     ]
 })
 export class SortableRemoteModule { }

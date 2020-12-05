@@ -5,6 +5,7 @@ import { BasicRemoteRoutingModule } from './basic-remote-routing.module';
 import { BasicRemoteComponent } from './basic-remote.component';
 import { DtTableModule } from 'ngx-dt-table';
 import { HttpClientModule } from '@angular/common/http';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     HttpClientModule,
     BasicRemoteRoutingModule,
-    DtTableModule
+    DtTableModule,
+    MatProgressBarModule
   ]
 })
 export class BasicRemoteModule { }

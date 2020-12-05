@@ -11,6 +11,7 @@ import { DtExpandRowButtonDirective } from './dt-expand-row-button.directive';
 import { DtSortColumnIconDirective } from './dt-sort-column-icon.directive';
 import { DtSelectAllDirective } from './dt-select-all.directive';
 import { DtSelectRowDirective } from './dt-select-row.directive';
+import { DtLoadingDirective } from './dt-loading.directive';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DtSelectRowDirective } from './dt-select-row.directive';
     DtExpandRowButtonDirective,
     DtSortColumnIconDirective,
     DtSelectAllDirective,
-    DtSelectRowDirective
+    DtSelectRowDirective,
+    DtLoadingDirective
   ],
   imports: [
     CommonModule,
@@ -40,6 +42,7 @@ import { DtSelectRowDirective } from './dt-select-row.directive';
     DtSelectAllDirective,
     DtSelectRowDirective,
     DtSortColumnIconDirective,
+    DtLoadingDirective,
   ]
 })
 export class DtTableModule { }

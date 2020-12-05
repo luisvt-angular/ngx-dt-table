@@ -16,7 +16,6 @@ Angular 11+ Datatable/Grid component for presenting large and complex data.
 
 ## Todos
 
-* [ ] Loading Indicator
 * [ ] Infinite Scrolling
 * [ ] Group By
 * [ ] Resize Columns

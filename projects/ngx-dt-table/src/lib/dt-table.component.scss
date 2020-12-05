@@ -1,13 +1,18 @@
-$mat-header-row-height: 56px;
-$mat-row-height: 48px;
-$mat-row-horizontal-padding: 24px;
+$dt-header-row-min-height: 56px;
+$dt-row-min-height: 48px;
+$dt-row-horizontal-padding: 24px;
 
 :host {
   display: block;
   overflow: auto;
+  background: white;
 }
 
-.matx-table-frozen-left {
+.dt-table-container {
+  background: inherit;
+}
+
+.dt-table-frozen-left {
   position: sticky;
   left: 0;
   z-index: 10;
@@ -30,18 +35,20 @@ $mat-row-horizontal-padding: 24px;
   border-left: 2px solid rgba(0, 0, 0, 0.12);
 }
 
-.mat-header-row {
+.dt-header-row {
   position: sticky;
   top: 0;
   z-index: 20;
-  min-height: $mat-header-row-height;
+  min-height: $dt-header-row-min-height;
+  background: inherit;
 }
 
-.mat-row, .mat-detail-row, .mat-footer-row {
-  min-height: $mat-row-height;
+.dt-row, .dt-detail-row, .dt-footer-row {
+  min-height: $dt-row-min-height;
+  background: inherit;
 }
 
-.mat-row, .mat-header-row, .mat-footer-row {
+.dt-row, .dt-header-row, .dt-footer-row {
   display: flex;
 
   // Workaround for https://goo.gl/pFmjJD in IE 11. Adds a pseudo
@@ -54,7 +61,7 @@ $mat-row-horizontal-padding: 24px;
   }
 }
 
-.mat-cell, .mat-header-cell, .mat-footer-cell {
+.dt-cell, .dt-header-cell, .dt-footer-cell {
   flex: 1;
   display: flex;
   align-items: center;
@@ -65,7 +72,7 @@ $mat-row-horizontal-padding: 24px;
   padding-right: 15px;
 }
 
-.mat-header-cell {
+.dt-header-cell {
   border-bottom: 3px solid rgba(0, 0, 0, 0.12);
   div {
     flex: 1;
@@ -74,7 +81,7 @@ $mat-row-horizontal-padding: 24px;
   }
 }
 
-.mat-cell, .mat-detail-row {
+.dt-cell, .dt-detail-row {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 

@@ -1,4 +1,5 @@
-<dt-table [data]="users$">
+<dt-table [data]="users$" [loading]="loading">
+  <mat-progress-bar *dtLoading mode="indeterminate"></mat-progress-bar>
   <dt-column field="id" header="Id"></dt-column>
   <dt-column field="name" header="Name"></dt-column>
   <dt-column field="username" header="Username"></dt-column>
