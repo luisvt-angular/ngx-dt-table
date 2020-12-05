@@ -220,7 +220,6 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
       editing: false,
       creating: false,
       expanded: false,
-      form: new FormGroup({})
     }))
 
   /** Paginates rows. This should only run if data is local. */
@@ -256,6 +255,7 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
   /** Handles the start of editing specified row. For example when users double clicks the row */
   startEditing(row: DtRow): void {
     if (row.editing) { return; }
+    row.form = new FormGroup({});
     this.columns.forEach(c => row.form.addControl(c.field, new FormControl(get(row.item, c.field))));
     row.editing = true;
   }
@@ -263,6 +263,7 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
   /** Handles the reset of specified row. For example when users press key Esc */
   resetRow(row: DtRow): void {
     this.columns.forEach(c => row.form.removeControl(c.field));
+    delete row.form;
     row.editing = false;
   }
 
@@ -273,6 +274,7 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
       set(row.item, c.field, row.form.get(c.field)?.value);
       row.form.removeControl(c.field);
     });
+    delete row.form;
     row.editing = false;
   }
 

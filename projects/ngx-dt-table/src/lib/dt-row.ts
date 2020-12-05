@@ -5,5 +5,5 @@ export interface DtRow {
   editing: boolean;
   creating: boolean;
   expanded: boolean;
-  form: FormGroup;
+  form?: FormGroup;
 }

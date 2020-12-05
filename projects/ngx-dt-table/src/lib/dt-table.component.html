@@ -26,6 +26,27 @@
   </div>
 </ng-template>
 
+<ng-template #rowContent let-row>
+  <div class="dt-table-frozen-left" *ngIf="selectable || rowDetail || frozenLeftColumns.length" [ngStyle]="frozenLeftStyle">
+    <div class="dt-cell dt-cell-expander" *ngIf="rowDetail">
+      <ng-template [ngTemplateOutlet]="expandRowButtonTemplate" [ngTemplateOutletContext]="{$implicit: row}"></ng-template>
+    </div>
+    <div class="dt-cell dt-cell-select" *ngIf="selectable">
+      <input *ngIf="!selectRowTemplate; else selectRowTemplateOutlet"
+             type="checkbox" [checked]="isRowSelected(row)" (change)="toggleSelectRow(row, $event)">
+      <ng-template #selectRowTemplateOutlet [ngTemplateOutlet]="selectRowTemplate"
+                   [ngTemplateOutletContext]="{$implicit: this, row: row}"></ng-template>
+    </div>
+    <ng-template [ngTemplateOutlet]="bodyColumns" [ngTemplateOutletContext]="{$implicit: frozenLeftColumns, row: row}"></ng-template>
+  </div>
+  <div class="dt-scrollable-columns">
+    <ng-template [ngTemplateOutlet]="bodyColumns" [ngTemplateOutletContext]="{$implicit: scrollableColumns, row: row}"></ng-template>
+  </div>
+  <div class="dt-table-frozen-right" *ngIf="frozenRightColumns.length" [ngStyle]="frozenRightStyle">
+    <ng-template [ngTemplateOutlet]="bodyColumns" [ngTemplateOutletContext]="{$implicit: frozenRightColumns, row: row}"></ng-template>
+  </div>
+</ng-template>
+
 
 <div class="dt-table-container" [ngStyle]="scrollableStyle">
   <div class="dt-header-row">
@@ -52,27 +73,13 @@
   </ng-template>
 
   <ng-template ngFor let-row [ngForOf]="paginate(rows)">
-    <form [formGroup]="row.form" class="dt-row" (dblclick)="startEditing(row)" (submit)="submitRow(row)"
+    <div *ngIf="!row.editing" class="dt-row" (dblclick)="startEditing(row)"
           (keyup.escape)="resetRow(row)">
+      <ng-template [ngTemplateOutlet]="rowContent" [ngTemplateOutletContext]="{$implicit: row}"></ng-template>
+    </div>
+    <form *ngIf="row.editing" [formGroup]="row.form" class="dt-row" (submit)="submitRow(row)" (keyup.escape)="resetRow(row)">
       <button type="submit" hidden></button>
-      <div class="dt-table-frozen-left" *ngIf="selectable || rowDetail || frozenLeftColumns.length" [ngStyle]="frozenLeftStyle">
-        <div class="dt-cell dt-cell-expander" *ngIf="rowDetail">
-          <ng-template [ngTemplateOutlet]="expandRowButtonTemplate" [ngTemplateOutletContext]="{$implicit: row}"></ng-template>
-        </div>
-        <div class="dt-cell dt-cell-select" *ngIf="selectable">
-          <input *ngIf="!selectRowTemplate; else selectRowTemplateOutlet"
-                 type="checkbox" [checked]="isRowSelected(row)" (change)="toggleSelectRow(row, $event)">
-          <ng-template #selectRowTemplateOutlet [ngTemplateOutlet]="selectRowTemplate"
-                       [ngTemplateOutletContext]="{$implicit: this, row: row}"></ng-template>
-        </div>
-        <ng-template [ngTemplateOutlet]="bodyColumns" [ngTemplateOutletContext]="{$implicit: frozenLeftColumns, row: row}"></ng-template>
-      </div>
-      <div class="dt-scrollable-columns">
-        <ng-template [ngTemplateOutlet]="bodyColumns" [ngTemplateOutletContext]="{$implicit: scrollableColumns, row: row}"></ng-template>
-      </div>
-      <div class="dt-table-frozen-right" *ngIf="frozenRightColumns.length" [ngStyle]="frozenRightStyle">
-        <ng-template [ngTemplateOutlet]="bodyColumns" [ngTemplateOutletContext]="{$implicit: frozenRightColumns, row: row}"></ng-template>
-      </div>
+      <ng-template [ngTemplateOutlet]="rowContent" [ngTemplateOutletContext]="{$implicit: row}"></ng-template>
     </form>
     <div class="dt-detail-row" *ngIf="rowDetail && row.expanded">
       <ng-template [ngTemplateOutlet]="rowDetail" [ngTemplateOutletContext]="{$implicit: row.item}"></ng-template>

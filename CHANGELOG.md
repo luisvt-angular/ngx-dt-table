@@ -1,3 +1,7 @@
+## 0.0.3
+
+- Use div for rendering row and form for editing only
+
 ## 0.0.2
 
 - Add loading indicator
