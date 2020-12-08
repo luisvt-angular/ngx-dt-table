@@ -81,6 +81,19 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
   /** Handles the style of the scrollable columns area */
   @Input() frozenRightStyle: { [klass: string]: any };
 
+  /** Url used to fetch print styles */
+  @Input() printStyleUrl: string;
+
+  /** Print Css Styles */
+  @Input() printStyleCss = '.dt-cell, .dt-header-cell {' +
+    'border-bottom: 3px solid rgba(0, 0, 0, 0.12);' +
+    'padding-left: 10px;padding-right: 10px;' +
+    'text-align: left;' +
+    '}' +
+    '.dt-cell {' +
+    'border-bottom-width: 1px' +
+    '}';
+
   /** Event emitted after a column sort is started. This event is only used for remote/async sorting. */
   @Output() sort = new EventEmitter<DtSortEvent>();
 
@@ -323,25 +336,14 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
 
   /** Opens a new windows asking for printing the table */
   async print(): Promise<void> {
-    const result = await this.getPrintable();
-    const w = window.open();
-    w.document.write(result);
-    const style = w.document.createElement('style');
-    style.appendChild(w.document.createTextNode(document.head.getElementsByTagName('style')[0].textContent));
-    w.document.head.appendChild(style);
-    const style2 = w.document.createElement('style');
-    style2.appendChild(w.document.createTextNode(`
-.mat-cell, .mat-header-cell {
-  border-bottom: 3px solid rgba(0, 0, 0, 0.12);
-  padding-left: 10px;
-  padding-right: 10px;
-  text-align: left;
-}
-.mat-cell {
-  border-bottom-width: 1px
-}`));
-    w.document.head.appendChild(style2);
-    w.print();
-    w.close();
+    const pageStyles = document.head.getElementsByTagName('style');
+    const pw = window.open();
+    pw.document.write(`<html><head>
+${this.printStyleUrl ? `<link rel="stylesheet" href="${this.printStyleUrl}">` : ''}
+<style>${this.printStyleCss}</style>
+</head><body>${await this.getPrintable()}</body></html>`);
+    pw.document.close();
+    pw.print();
+    pw.close();
   }
 }

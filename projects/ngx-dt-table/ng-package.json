@@ -3,5 +3,9 @@
   "dest": "../../dist/ngx-dt-table",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "delay",
+    "dot-prop"
+  ]
 }

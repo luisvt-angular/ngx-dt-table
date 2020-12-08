@@ -1,3 +1,9 @@
+# Changelog
+
+## 0.0.4
+
+- Fix Printing and add `printStyleCss` and `printStyleUrl`
+
 ## 0.0.3
 
 - Use div for rendering row and form for editing only

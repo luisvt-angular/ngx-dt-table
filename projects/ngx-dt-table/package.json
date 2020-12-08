@@ -19,12 +19,14 @@
     "grid",
     "datagrid"
   ],
-  "version": "0.0.3",
+  "version": "0.0.4",
   "peerDependencies": {
     "@angular/common": "^11.0.1",
     "@angular/core": "^11.0.1"
   },
   "dependencies": {
+    "delay": "^4.4.0",
+    "dot-prop": "^6.0.1",
     "tslib": "^2.0.0"
   }
 }
