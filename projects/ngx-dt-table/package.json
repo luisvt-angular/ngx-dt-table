@@ -1,6 +1,7 @@
 {
   "name": "ngx-dt-table",
   "description": "Angular 11+ Datatable/Grid component for presenting large and complex data.",
+  "repository": "https://github.com/luisvt-angular/ngx-dt-table",
   "keywords": [
     "ngx-dt-table",
     "angular-datatable",
@@ -19,7 +20,7 @@
     "grid",
     "datagrid"
   ],
-  "version": "0.0.5",
+  "version": "0.0.5-1",
   "peerDependencies": {
     "@angular/common": "^11.0.1",
     "@angular/core": "^11.0.1"

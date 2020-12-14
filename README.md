@@ -4,15 +4,15 @@ Angular 11+ Datatable/Grid component for presenting large and complex data.
 
 ## Demos
 
-1. [Basic](https://luisvt.github.io/ngx-dt-table/#/basic)
-2. [Selectable](https://luisvt.github.io/ngx-dt-table/#/selectable)
-3. [Scrollable](https://luisvt.github.io/ngx-dt-table#/scrollable)
-4. [Frozen Columns](https://luisvt.github.io/ngx-dt-table/#/frozen-columns)
-5. [Sortable](https://luisvt.github.io/ngx-dt-table/#/Sortable)
-6. [Sortable Remote](https://luisvt.github.io/ngx-dt-table#/sortable-remote)
-7. [Cell/Header Template](https://luisvt.github.io/ngx-dt-table/#/cell-template)
-8. [Editor Template](https://luisvt.github.io/ngx-dt-table/#/editor-template)
-9. [Print](https://luisvt.github.io/ngx-dt-table/#/print)
+1. [Basic](https://luisvt-angular.github.io/ngx-dt-table/#/basic)
+2. [Selectable](https://luisvt-angular.github.io/ngx-dt-table/#/selectable)
+3. [Scrollable](https://luisvt-angular.github.io/ngx-dt-table#/scrollable)
+4. [Frozen Columns](https://luisvt-angular.github.io/ngx-dt-table/#/frozen-columns)
+5. [Sortable](https://luisvt-angular.github.io/ngx-dt-table/#/Sortable)
+6. [Sortable Remote](https://luisvt-angular.github.io/ngx-dt-table#/sortable-remote)
+7. [Cell/Header Template](https://luisvt-angular.github.io/ngx-dt-table/#/cell-template)
+8. [Editor Template](https://luisvt-angular.github.io/ngx-dt-table/#/editor-template)
+9. [Print](https://luisvt-angular.github.io/ngx-dt-table/#/print)
 
 ## Todos
 
