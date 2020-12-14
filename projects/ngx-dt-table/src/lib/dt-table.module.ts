@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DtTableComponent } from './dt-table.component';
-import { DtColumnDirective } from './dt-column.directive';
+import { DtColumnTemplateDirective, DtColumnDirective } from './dt-column.directive';
 import { DtRowDetailDirective } from './dt-row-detail.directive';
 import { DtCellDirective } from './dt-cell.directive';
 import { DtHeaderDirective } from './dt-header.directive';
@@ -17,6 +17,7 @@ import { DtLoadingDirective } from './dt-loading.directive';
   declarations: [
     DtTableComponent,
     DtColumnDirective,
+    DtColumnTemplateDirective,
     DtRowDetailDirective,
     DtCellDirective,
     DtHeaderDirective,
@@ -34,6 +35,7 @@ import { DtLoadingDirective } from './dt-loading.directive';
   exports: [
     DtTableComponent,
     DtColumnDirective,
+    DtColumnTemplateDirective,
     DtRowDetailDirective,
     DtCellDirective,
     DtHeaderDirective,

@@ -13,15 +13,15 @@
   <!-- auxColumns: DtColumnDirective[] -->
   <!-- row: DtRow -->
   <!-- form: NgForm -->
-  <div class="dt-cell" *ngFor="let column of auxColumns" [ngClass]="column.ngClass" [ngStyle]="column.ngStyle">
+  <div class="dt-cell" *ngFor="let column of auxColumns" [ngClass]="column.ngClass" [ngStyle]="column.columnNgStyle">
     <ng-template [ngIf]="!editable || !column.editorTemplate || !row.editing" [ngIfElse]="columnEditor">
       <ng-template [ngIf]="!column.cellTemplate">{{get(row.item, column.field)}}</ng-template>
       <ng-template [ngTemplateOutlet]="column.cellTemplate"
-                   [ngTemplateOutletContext]="{$implicit: row, item: row.item, table: this}"></ng-template>
+                   [ngTemplateOutletContext]="{$implicit: row.item, row: row, table: this}"></ng-template>
     </ng-template>
     <ng-template #columnEditor>
       <ng-template [ngTemplateOutlet]="column.editorTemplate"
-                   [ngTemplateOutletContext]="{$implicit: row, item: row.item, table: this}"></ng-template>
+                   [ngTemplateOutletContext]="{$implicit: row.form.controls, row: row, item: row.item, table: this}"></ng-template>
     </ng-template>
   </div>
 </ng-template>

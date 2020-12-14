@@ -12,7 +12,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { DtColumnDirective } from './dt-column.directive';
+import { DtColumn, DtColumnTemplateDirective, DtColumnDirective } from './dt-column.directive';
 import { DtRowDetailDirective } from './dt-row-detail.directive';
 import { FormControl, FormGroup } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -114,7 +114,7 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
   }
 
   /** List of columns added in the content */
-  @ContentChildren(DtColumnDirective) columns: DtColumnDirective[];
+  @ContentChildren(DtColumn) columns: DtColumnDirective[];
 
   /** List of frozen left columns */
   frozenLeftColumns: DtColumnDirective[] = [];
@@ -217,10 +217,10 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
         this.scrollableColumns.push(column);
       }
 
-      if (column.width) { column.ngStyle.flex = '0 ' + column.width; }
+      if (column.width) { column.columnNgStyle.flex = '0 ' + column.width; }
     });
-    this.frozenLeftStyle = {...this.frozenLeftStyle, ...{width: this.frozenLeftWidth}};
-    this.frozenRightStyle = {...this.frozenRightStyle, ...{width: this.frozenRightWidth}};
+    this.frozenLeftStyle = {...this.frozenLeftStyle, width: this.frozenLeftWidth};
+    this.frozenRightStyle = {...this.frozenRightStyle, width: this.frozenRightWidth};
   }
 
   ngOnDestroy(): void {

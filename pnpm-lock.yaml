@@ -9,7 +9,7 @@ dependencies:
   '@angular/platform-browser': 11.0.2_47e300bae777784c25f2709c74f8403d
   '@angular/platform-browser-dynamic': 11.0.2_dbc3c71ad0cfc53b2c41b690d1e3b656
   '@angular/router': 11.0.2_0f84c03045972e1e7b7c40784a2aec25
-  angular-material-extended: 0.11.1_4a0a9b4311bd50a68e644fff8a283764
+  angular-material-extended: 1.0.0_4a0a9b4311bd50a68e644fff8a283764
   delay: 4.4.0
   dot-prop: 6.0.1
   highlight.js: 10.4.0
@@ -1851,7 +1851,7 @@ packages:
     dev: true
     resolution:
       integrity: sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
-  /angular-material-extended/0.11.1_4a0a9b4311bd50a68e644fff8a283764:
+  /angular-material-extended/1.0.0_4a0a9b4311bd50a68e644fff8a283764:
     dependencies:
       '@angular/common': 11.0.2_@angular+core@11.0.2+rxjs@6.6.3
       '@angular/core': 11.0.2_rxjs@6.6.3+zone.js@0.10.3
@@ -1861,12 +1861,12 @@ packages:
     dev: false
     peerDependencies:
       '@agm/core': ^1.1.0
-      '@angular/common': ^10.0.0
-      '@angular/core': ^10.0.0
-      '@angular/forms': ^10.0.0
-      '@angular/material': ^10.0.0
+      '@angular/common': ^11.0.0
+      '@angular/core': ^11.0.0
+      '@angular/forms': ^11.0.0
+      '@angular/material': ^11.0.0
     resolution:
-      integrity: sha512-KOjjx81QoEu/RsNFE2JM20JuYbwLMZSFxWauHI64oaHZVZ7ZmR95pAYEQTDeyN023XSnUmOE0FiesjqcR4n4Iw==
+      integrity: sha512-VfNB1QcLBvcbCvC0MXMaQrVni/i440WriqluBaW71jB/wbdhBj7plu0UfAN/ORI//2+A8Oz+tV34eMuX3h9hwQ==
   /ansi-colors/3.2.4:
     dev: true
     engines:
@@ -9893,7 +9893,7 @@ specifiers:
   '@angular/router': ~11.0.1
   '@types/jasmine': ~3.6.0
   '@types/node': ^12.11.1
-  angular-material-extended: ^0.11.1
+  angular-material-extended: ^1.0.0
   codelyzer: ^6.0.0
   delay: ^4.4.0
   dot-prop: ^6.0.1

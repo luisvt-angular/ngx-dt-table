@@ -1,13 +1,15 @@
-import { ContentChild, Directive, Input, TemplateRef } from '@angular/core';
+import { ContentChild, Directive, Input, Optional, TemplateRef } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { DtCellDirective } from './dt-cell.directive';
 import { DtHeaderDirective } from './dt-header.directive';
 import { DtEditorDirective } from './dt-editor.directive';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { NgModel } from '@angular/forms';
 
-@Directive({selector: 'dt-column'})
-export class DtColumnDirective {
+export class DtColumn {}
+
+@Directive({selector: 'dt-column', providers: [{provide: DtColumn, useExisting: DtColumnDirective}]})
+export class DtColumnDirective extends DtColumn {
+
   /** Handles if the column will be frozen at left or right */
   @Input() frozen: 'left' | 'right';
 
@@ -21,7 +23,7 @@ export class DtColumnDirective {
   @Input() ngClass: NgClass;
 
   /** Column ngStyle */
-  @Input() ngStyle: { [klass: string]: any } = {};
+  @Input() columnNgStyle: { [klass: string]: any } = {};
 
   /** Column width */
   @Input() width: string;
@@ -30,9 +32,15 @@ export class DtColumnDirective {
    * Template used to create header containing custom html components:
    *
    * ```html
-   * <matx-column field="name">
+   * <dt-column field="name">
    *   <ng-template dtHeader><b>Name</b></ng-template>
-   * </matx-column>
+   * </dt-column>
+   *
+   * or:
+   * ```html
+   * <dt-column field="name">
+   *   <b *dtHeader>Name</b>
+   * </dt-column>
    * ```
    */
   @ContentChild(DtHeaderDirective, {read: TemplateRef}) headerTemplate: TemplateRef<any>;
@@ -41,9 +49,16 @@ export class DtColumnDirective {
    * Template used to create cell containing custom html components:
    *
    * ```html
-   * <matx-column>
+   * <dt-column>
    *   <ng-template dtCell let-player><b>{{player.name}}</b></ng-template>
-   * </matx-column>
+   * </dt-column>
+   * ```
+   *
+   * or:
+   * ```html
+   * <dt-column>
+   *   <div *dtCell="let player"><b>{{player.name}}</b></ng-template>
+   * </dt-column>
    * ```
    */
   @ContentChild(DtCellDirective, {read: TemplateRef}) cellTemplate: TemplateRef<any>;
@@ -52,14 +67,22 @@ export class DtColumnDirective {
    * Template used when row is being edited:
    *
    * ```html
-   * <matx-column field="national" header="National" [frozen]="nationalFrozenRight ? 'right' : null"
-   *              [width]="nationalWidth">
-   *     <ng-template dtEditor let-player>
-   *       <matx-select hideRequiredMarker [(ngModel)]="player.national"
-   *                    [options]="['Argentina', 'Portugal', 'England', 'Brazil', 'Germany', 'France', 'Holland']">
+   * <dt-column field="national" header="National" frozen="right" [width]="300px">
+   *   <ng-template dtEditor let-player>
+   *     <matx-select hideRequiredMarker [(ngModel)]="player.national"
+   *                  [options]="['Argentina', 'Portugal', 'England', 'Brazil', 'Germany', 'France', 'Holland']">
    *     </matx-select>
    *   </ng-template>
-   * </matx-column>
+   * </dt-column>
+   * ```
+   *
+   * or:
+   * ```html
+   * <dt-column field="national" header="National" frozen="right" [width]="300px">
+   *   <matx-select *dtEditor="let player" hideRequiredMarker [(ngModel)]="player.national"
+   *                [options]="['Argentina', 'Portugal', 'England', 'Brazil', 'Germany', 'France', 'Holland']">
+   *   </matx-select>
+   * </dt-column>
    * ```
    */
   @ContentChild(DtEditorDirective, {read: TemplateRef}) editorTemplate: TemplateRef<any>;
@@ -71,17 +94,17 @@ export class DtColumnDirective {
    * <br>
    * The value could be a direct property:
    *  ```html
-   *  <matx-column sortBy="name"></matx-column>
+   *  <dt-column sortBy="name"></dt-column>
    *  ```
    *
    *  Or it could be a dot property:
    *  ```html
-   *  <matx-column sortBy="user.name"></matx-column>
+   *  <dt-column sortBy="user.name"></dt-column>
    *  ```
    *
    *  Or it could be a function:
    *  ```html
-   *  <matx-column [sortBy]="sortByUserName"></matx-column>
+   *  <dt-column [sortBy]="sortByUserName"></dt-column>
    *  ```
    *  ```ts
    *  sortByUsername = (row) => row.user.name;
@@ -107,4 +130,12 @@ export class DtColumnDirective {
   get noPrintable(): boolean { return this._noPrintable; }
 
   @Input() set noPrintable(value: boolean) { this._noPrintable = coerceBooleanProperty(value); }
+}
+
+@Directive({selector: 'ng-template[dtColumn]', providers: [{provide: DtColumn, useExisting: DtColumnTemplateDirective}]})
+export class DtColumnTemplateDirective extends DtColumnDirective {
+  constructor(templateRef: TemplateRef<any>) {
+    super();
+    this.cellTemplate = templateRef;
+  }
 }

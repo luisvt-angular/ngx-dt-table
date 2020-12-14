@@ -1,11 +1,11 @@
 <dt-table [data]="players">
-  <dt-column field="id" header="Id" width="25px"></dt-column>
+  <ng-template dtColumn field="id" header="Id" width="25px" let-player>{{player.id}}</ng-template>
   <dt-column>
     <div *dtHeader>
       <h3>Name</h3>
       <p>Player Info</p>
     </div>
-    <div *dtCell="let player = item">
+    <div *dtCell="let player">
       <h3>{{player.name}}</h3>
       <p><b>Age:</b>&nbsp;<i>{{player.age}}</i>, <b>Club:</b>&nbsp;<i>{{player.club}}</i>,&nbsp;<b>Nationality:</b>&nbsp;<i>{{player.national}}</i></p>
     </div>

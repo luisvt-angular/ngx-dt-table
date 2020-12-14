@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.0.5
+
+- Add `DtColumnTemplate` directive. This allows to use `dtColumn` as template directive:
+
+```html
+<ng-template dtColumn let-player header="Name">
+  {{player.name}}
+</ng-template>
+```
+
 ## 0.0.4
 
 - Fix Printing and add `printStyleCss` and `printStyleUrl`
