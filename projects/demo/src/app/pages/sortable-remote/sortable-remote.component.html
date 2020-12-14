@@ -2,7 +2,7 @@
   <mat-progress-bar *dtLoading mode="indeterminate"></mat-progress-bar>
   <dt-column field="id" header="Id" width="20px"></dt-column>
   <dt-column header="Title / Body" sortBy="title">
-    <div *dtCell="let post = item">
+    <div *dtCell="let post">
       <h2>{{post.title}}</h2>
       <p>{{post.body}}</p>
     </div>
