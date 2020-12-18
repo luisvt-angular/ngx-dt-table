@@ -12,6 +12,7 @@ import { DtSortColumnIconDirective } from './dt-sort-column-icon.directive';
 import { DtSelectAllDirective } from './dt-select-all.directive';
 import { DtSelectRowDirective } from './dt-select-row.directive';
 import { DtLoadingDirective } from './dt-loading.directive';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DtLoadingDirective } from './dt-loading.directive';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ScrollingModule
   ],
   exports: [
     DtTableComponent,

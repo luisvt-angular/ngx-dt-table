@@ -27,6 +27,7 @@ import { DtSortColumnIconDirective } from './dt-sort-column-icon.directive';
 import { DtSelectAllDirective } from './dt-select-all.directive';
 import { DtSelectRowDirective } from './dt-select-row.directive';
 import { DtLoadingDirective } from './dt-loading.directive';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'dt-table',
@@ -36,6 +37,12 @@ import { DtLoadingDirective } from './dt-loading.directive';
 export class DtTableComponent implements AfterContentChecked, OnDestroy {
 
   private subscription: Subscription;
+
+  get inverseTranslation(): string {
+    return `-${this.viewport?.getOffsetToRenderedContentStart() || 0}px`;
+  }
+
+  @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport
 
   /** Function used to get value from object using `dot.property` notation */
   get = get;
@@ -345,5 +352,9 @@ ${this.printStyleUrl ? `<link rel="stylesheet" href="${this.printStyleUrl}">` : 
     pw.document.close();
     pw.print();
     pw.close();
+  }
+
+  logChange($event: any): void {
+    console.log('$event: ', $event);
   }
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.6
+
+- Add Virtual Scroll
+
 ## 0.0.5
 
 - Add `DtColumnTemplate` directive. This allows to use `dtColumn` as template directive:
