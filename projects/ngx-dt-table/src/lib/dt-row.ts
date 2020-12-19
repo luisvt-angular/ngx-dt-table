@@ -6,4 +6,6 @@ export interface DtRow {
   creating: boolean;
   expanded: boolean;
   form?: FormGroup;
+  children?: any[];
+  parent?: DtRow;
 }

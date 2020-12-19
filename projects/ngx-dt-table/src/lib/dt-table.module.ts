@@ -13,6 +13,7 @@ import { DtSelectAllDirective } from './dt-select-all.directive';
 import { DtSelectRowDirective } from './dt-select-row.directive';
 import { DtLoadingDirective } from './dt-loading.directive';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { DtGroupHeaderDirective } from './dt-group-header.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     DtSortColumnIconDirective,
     DtSelectAllDirective,
     DtSelectRowDirective,
-    DtLoadingDirective
+    DtLoadingDirective,
+    DtGroupHeaderDirective
   ],
   imports: [
     CommonModule,
@@ -47,6 +49,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     DtSelectRowDirective,
     DtSortColumnIconDirective,
     DtLoadingDirective,
+    DtGroupHeaderDirective
   ]
 })
 export class DtTableModule { }

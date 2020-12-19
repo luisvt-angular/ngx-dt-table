@@ -81,8 +81,10 @@
     </div>
 
     <ng-template cdkVirtualFor let-row [cdkVirtualForOf]="paginate(rows)">
-      <div *ngIf="!row.editing" class="dt-row" (dblclick)="startEditing(row)"
-           (keyup.escape)="resetRow(row)">
+      <div *ngIf="row.children" class="dt-row dt-group-header">
+        <ng-template [ngTemplateOutlet]="groupHeaderTemplate" [ngTemplateOutletContext]="{$implicit: row}"></ng-template>
+      </div>
+      <div *ngIf="!row.editing && (!groupBy || row.parent?.expanded)" class="dt-row" (dblclick)="startEditing(row)">
         <ng-template [ngTemplateOutlet]="rowContent" [ngTemplateOutletContext]="{$implicit: row}"></ng-template>
       </div>
       <form *ngIf="row.editing" [formGroup]="row.form" class="dt-row" (submit)="submitRow(row)"

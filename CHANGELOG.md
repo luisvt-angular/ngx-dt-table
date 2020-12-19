@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.7
+
+- Add Group By
+
 ## 0.0.6
 
 - Add Virtual Scroll

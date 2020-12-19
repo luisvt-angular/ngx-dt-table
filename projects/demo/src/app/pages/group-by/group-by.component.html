@@ -1,0 +1,13 @@
+<dt-table [data]="players" groupBy="club">
+  <ng-template dtGroupHeader let-row>
+    <button mat-icon-button (click)="row.expanded = !row.expanded">
+      <mat-icon *ngIf="!row.expanded">chevron_right</mat-icon>
+      <mat-icon *ngIf="row.expanded">expand_more</mat-icon>
+    </button>
+    Club: {{row.item}}</ng-template>
+  <dt-column field="id" header="Id"></dt-column>
+  <dt-column field="name" header="Name"></dt-column>
+  <dt-column field="age" header="Age"></dt-column>
+  <dt-column field="club" header="Club"></dt-column>
+  <dt-column field="national" header="National"></dt-column>
+</dt-table>

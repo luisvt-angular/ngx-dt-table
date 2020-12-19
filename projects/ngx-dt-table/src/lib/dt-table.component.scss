@@ -78,6 +78,12 @@ cdk-virtual-scroll-viewport {
   }
 }
 
+.dt-group-header {
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .dt-cell, .dt-header-cell, .dt-footer-cell {
   flex: 1;
   display: flex;
@@ -98,7 +104,7 @@ cdk-virtual-scroll-viewport {
   }
 }
 
-.dt-cell, .dt-detail-row {
+.dt-cell, .dt-detail-row, .dt-group-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 

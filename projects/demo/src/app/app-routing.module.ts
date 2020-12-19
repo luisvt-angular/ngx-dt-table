@@ -16,7 +16,8 @@ const routes: Routes = [
   {
     path: 'row-detail-template',
     loadChildren: () => import('./pages/row-detail-template/row-detail-template.module').then(m => m.RowDetailTemplateModule)
-  }
+  },
+  {path: 'group-by', loadChildren: () => import('./pages/group-by/group-by.module').then(m => m.GroupByModule)}
 ];
 
 @NgModule({

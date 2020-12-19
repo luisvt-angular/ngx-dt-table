@@ -12,11 +12,12 @@ Angular 11+ Datatable/Grid component for presenting large and complex data.
 6. [Sortable Remote](https://luisvt-angular.github.io/ngx-dt-table#/sortable-remote)
 7. [Cell/Header Template](https://luisvt-angular.github.io/ngx-dt-table/#/cell-template)
 8. [Editor Template](https://luisvt-angular.github.io/ngx-dt-table/#/editor-template)
+8. [Row Detail Template](https://luisvt-angular.github.io/ngx-dt-table/#/row-detail-template)
+8. [Group By](https://luisvt-angular.github.io/ngx-dt-table/#/group-by)
 9. [Print](https://luisvt-angular.github.io/ngx-dt-table/#/print)
 
 ## Todos
 
-* [ ] Group By
 * [ ] Resize Columns
 * [ ] Context Menu
 * [ ] Filter By

@@ -7,6 +7,7 @@ export * from './lib/dt-cell.directive';
 export * from './lib/dt-column.directive';
 export * from './lib/dt-editor.directive';
 export * from './lib/dt-expand-row-button.directive';
+export * from './lib/dt-group-header.directive';
 export * from './lib/dt-header.directive';
 export * from './lib/dt-loading.directive';
 export * from './lib/dt-row-detail.directive';

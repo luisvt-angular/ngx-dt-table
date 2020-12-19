@@ -59,6 +59,11 @@ export class AppComponent {
       html: require('!raw-loader!./pages/row-detail-template/row-detail-template.component.html').default,
       ts: require('!raw-loader!./pages/row-detail-template/row-detail-template.component.ts').default
     },
+    '/group-by': {
+      name: 'Group By',
+      html: require('!raw-loader!./pages/group-by/group-by.component.html').default,
+      ts: require('!raw-loader!./pages/group-by/group-by.component.ts').default
+    },
     '/print': {
       name: 'Print',
       html: require('!raw-loader!./pages/print/print.component.html').default,

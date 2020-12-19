@@ -28,6 +28,7 @@ import { DtSelectAllDirective } from './dt-select-all.directive';
 import { DtSelectRowDirective } from './dt-select-row.directive';
 import { DtLoadingDirective } from './dt-loading.directive';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { DtGroupHeaderDirective } from './dt-group-header.directive';
 
 @Component({
   selector: 'dt-table',
@@ -42,7 +43,7 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
     return `-${this.viewport?.getOffsetToRenderedContentStart() || 0}px`;
   }
 
-  @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport
+  @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
   /** Function used to get value from object using `dot.property` notation */
   get = get;
@@ -179,7 +180,7 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
    *   <mat-icon *ngIf="column.sortable && column.sortDirection === -1">south</mat-icon>
    * </ng-template>
    */
-  @ContentChild(DtSortColumnIconDirective, {read: TemplateRef})sortColumnIconTemplate: TemplateRef<any>;
+  @ContentChild(DtSortColumnIconDirective, {read: TemplateRef}) sortColumnIconTemplate: TemplateRef<any>;
 
   /**
    * Template used to create the select all checkbox
@@ -210,8 +211,11 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
    */
   @ContentChild(DtLoadingDirective, {read: TemplateRef}) loadingTemplate: TemplateRef<any>;
 
+  @Input() groupBy: string | ((item) => any);
+
+  @ContentChild(DtGroupHeaderDirective, {read: TemplateRef}) groupHeaderTemplate: TemplateRef<any>;
+
   ngAfterContentChecked(): void {
-    // console.log('this.columns: ', this.columns);
     this.frozenLeftColumns.length = 0;
     this.frozenRightColumns.length = 0;
     this.scrollableColumns.length = 0;
@@ -234,13 +238,40 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
     if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
-  private mapRows = (items: any[]) =>
-    this.rows = items.map(item => ({
-      item,
-      editing: false,
-      creating: false,
-      expanded: false,
-    }))
+  private mapRows = (items: any[]) => {
+    if (this.groupBy) {
+      const groups = items.reduce((prev, item) => {
+        if (typeof this.groupBy === 'string') {
+          const key = this.groupBy;
+          (prev[get<any>(item, key)] = prev[get<any>(item, key)] || []).push(item);
+        } else {
+          const key = this.groupBy(item);
+          (prev[key] = prev[key] || []).push(item);
+        }
+        return prev;
+      }, {});
+      this.rows = Object.keys(groups).reduce((prev, key) => {
+        const parent = {item: key, creating: false, editing: false, expanded: true} as DtRow;
+        const children = groups[key].map(item => ({
+          item,
+          editing: false,
+          creating: false,
+          expanded: false,
+          parent
+        } as DtRow));
+        parent.children = children;
+        prev.push(parent, ...children);
+        return prev;
+      }, []);
+    } else {
+      this.rows = items.map(item => ({
+        item,
+        editing: false,
+        creating: false,
+        expanded: false,
+      } as DtRow));
+    }
+  }
 
   /** Paginates rows. This should only run if data is local. */
   paginate(rows: DtRow[]): DtRow[] {
@@ -303,8 +334,8 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
     if (!column.sortable) { return; }
 
     column.sortDirection = column.sortDirection === 0 ? 1
-                         : column.sortDirection === 1 ? -1
-                         : 0;
+      : column.sortDirection === 1 ? -1
+        : 0;
 
     if (column.sortDirection !== 0) {
       if (!this.sortedColumnsSet.has(column)) {
