@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DtTableComponent } from 'ngx-dt-table';
+import { MatButtonToggleChange } from '@angular/material/button-toggle';
 
 @Component({
-  selector: 'app-print',
-  templateUrl: './print.component.html',
-  styleUrls: ['./print.component.scss']
+  selector: 'app-column-filter',
+  templateUrl: './column-filter.component.html',
+  styleUrls: ['./column-filter.component.scss']
 })
-export class PrintComponent implements OnInit {
+export class ColumnFilterComponent implements OnInit {
   players = [
     {id: 1, age: 27, club: 'Barcelona', name: 'Leonel Messi', national: 'Argentina'},
     {id: 2, age: 29, club: 'Real Madrid', name: 'Cristiano Ronaldo', national: 'Portugal'},
@@ -17,17 +18,21 @@ export class PrintComponent implements OnInit {
     {id: 7, age: 30, club: 'Manchester United', name: 'Robin Van Persie', national: 'Holland'},
     {id: 8, age: 28, club: 'Manchester City', name: 'David Silva', national: 'Spain'},
     {id: 9, age: 35, club: 'Juventus', name: 'Andrea Pirlo', national: 'Italy'},
-    {id: 10, age: 34, club: 'Juventus', name: 'Andrea Pirlo', national: 'Italy'},
-    {id: 11, age: 34, club: 'Real Madrid', name: 'Andrea Pirlo', national: 'Italy'}
   ];
-  csv: string;
+  filteringAction = 'Start';
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  async getCsv(table: DtTableComponent): Promise<void> {
-    this.csv = await table.getCsv();
+  toggleFiltering(event: MatButtonToggleChange, playersTable: DtTableComponent): void {
+    if (event.source.checked) {
+      playersTable.startFiltering();
+      this.filteringAction = 'End';
+    } else {
+      playersTable.endFiltering();
+      this.filteringAction = 'Start';
+    }
   }
 }

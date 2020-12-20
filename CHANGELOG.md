@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.8
+
+- Add Column Filters
+- Add `getCsv` Function
+- Fix sort to always clone rows before sorting
+
 ## 0.0.7
 
 - Add Group By

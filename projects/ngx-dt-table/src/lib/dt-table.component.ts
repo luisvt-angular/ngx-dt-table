@@ -12,7 +12,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { DtColumn, DtColumnTemplateDirective, DtColumnDirective } from './dt-column.directive';
+import { DtColumn, DtColumnDirective } from './dt-column.directive';
 import { DtRowDetailDirective } from './dt-row-detail.directive';
 import { FormControl, FormGroup } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -21,7 +21,6 @@ import { get } from 'dot-prop';
 import delay from 'delay';
 import { DtRow } from './dt-row';
 import { DtSortEvent } from './dt-sort-event';
-import set = Reflect.set;
 import { DtExpandRowButtonDirective } from './dt-expand-row-button.directive';
 import { DtSortColumnIconDirective } from './dt-sort-column-icon.directive';
 import { DtSelectAllDirective } from './dt-select-all.directive';
@@ -29,6 +28,8 @@ import { DtSelectRowDirective } from './dt-select-row.directive';
 import { DtLoadingDirective } from './dt-loading.directive';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { DtGroupHeaderDirective } from './dt-group-header.directive';
+import set = Reflect.set;
+import { DtFilterEvent } from './dt-filter-event';
 
 @Component({
   selector: 'dt-table',
@@ -105,6 +106,9 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
   /** Event emitted after a column sort is started. This event is only used for remote/async sorting. */
   @Output() sort = new EventEmitter<DtSortEvent>();
 
+  /** Event emitted after a column sort is started. This event is only used for remote/async sorting. */
+  @Output() filter = new EventEmitter<DtFilterEvent>();
+
   private sortedColumnsSet = new Set<DtColumnDirective>();
 
   private sortedColumns: DtColumnDirective[] = [];
@@ -137,6 +141,8 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
   rows: DtRow[] = [];
 
   private clonedRows: DtRow[];
+
+  private filteredRows: DtRow[];
 
   /** Set of selected rows */
   selectedRows = new Set();
@@ -211,9 +217,19 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
    */
   @ContentChild(DtLoadingDirective, {read: TemplateRef}) loadingTemplate: TemplateRef<any>;
 
+  /** Handles the groupBy field or function */
   @Input() groupBy: string | ((item) => any);
 
+  /**
+   * Template used to create GroupBy Header
+   */
   @ContentChild(DtGroupHeaderDirective, {read: TemplateRef}) groupHeaderTemplate: TemplateRef<any>;
+
+  /** Filters form row */
+  filtersForm: FormGroup;
+
+  /** Handles if the filter row is shown */
+  showFilters = false;
 
   ngAfterContentChecked(): void {
     this.frozenLeftColumns.length = 0;
@@ -329,6 +345,64 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
     row.editing = false;
   }
 
+  /** Shows the filters row and starts filtering the table */
+  startFiltering(): void {
+    this.filtersForm = new FormGroup({});
+    this.columns.forEach(c => this.filtersForm.addControl(c.field, c.comparison === '<=>'
+      ? new FormGroup({min: new FormControl(), max: new FormControl()})
+      : new FormControl()));
+    this.showFilters = true;
+  }
+
+  /** Resets the filters and hides the filters row */
+  endFiltering(): void {
+    this.resetFilters();
+    this.showFilters = false;
+  }
+
+  /** Resets the filters */
+  resetFilters(): void {
+    this.filtersForm.reset();
+    this.rows = [...this.clonedRows];
+  }
+
+  /** Applies the filters to the rows if the data is local, else it emits the filter event containing the filters to be applied */
+  applyFilters(): void {
+    if (this.subscription) {
+      const filters = this.columns.map(c => ({field: c.field, comparison: c.comparison, value: this.filtersForm[c.field].value}));
+      this.filter.emit({filters});
+      return;
+    }
+    const columns = Array.from(this.columns);
+    this.filteredRows = this.clonedRows.filter(r => columns.every(c => {
+        const a = get<any>(r.item, c.field);
+        const b = this.filtersForm.controls[c.field].value;
+        // @formatter:off
+        return c.comparisonFn ? c.comparisonFn(a, b)
+          : b == null ? true
+          : c.comparison === '==' ? a === b
+          : c.comparison === '!=' ? a !== b
+          : c.comparison === '~=' ? a?.includes(b)
+          : c.comparison === '*=' ? a?.toUpperCase().includes(b?.toUpperCase())
+          : c.comparison === '^=' ? a?.startsWith(b)
+          : c.comparison === '$=' ? a?.endsWith(b)
+          : c.comparison === '>' ? a > b
+          : c.comparison === '<' ? a < b
+          : c.comparison === '>=' ? a >= b
+          : c.comparison === '<=' ? a <= b
+          : c.comparison === '<=>'
+            ? b.min && b.max ? a >= b.min && a <= b.max
+            : b.min !== null ? a >= b.min
+            : b.max !== null ? a <= b.max
+            : true
+          : c.comparison === 'in' ? b?.includes(a)
+          : false;
+        // @formatter:on
+      }
+    ));
+    this._sortRows();
+  }
+
   /** Sorts the table with respect to the selected columns */
   _sort(column: DtColumnDirective): void {
     if (!column.sortable) { return; }
@@ -345,7 +419,6 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
     } else {
       this.sortedColumnsSet.delete(column);
       this.sortedColumns.pop();
-      if (!this.subscription) { this.rows = [...this.clonedRows]; }
     }
 
     if (this.subscription) {
@@ -356,11 +429,29 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
       this.sort.emit(sortEvent);
       return;
     }
-    if (column.sortDirection === 0 && this.sortedColumns.length === 0) {
+    this._sortRows();
+  }
+
+  private _sortRows(): void {
+    this.rows = [...(this.filteredRows || this.clonedRows)];
+    if (this.sortedColumns.length === 0) {
       return;
     }
     const fields = this.sortedColumns.map(c => typeof c.sortBy === 'function' ? c.sortBy : 'item.' + c.sortBy);
     this.rows.sort(compare(fields, this.sortedColumns.map(c => c.sortDirection)));
+  }
+
+  /** Gets the csv string of the printable table */
+  async getCsv(): Promise<string> {
+    this.renderPrintable = true;
+    await delay(200);
+    const result = Array.from((this._printable.nativeElement as HTMLTableElement).querySelectorAll('tr'))
+      .map(r => Array.from(r.querySelectorAll('th,td'))
+        .map(c => c.textContent.includes(',') ? `"${c.textContent}"` : c.textContent)
+        .join(','))
+      .join('\n');
+    this.renderPrintable = false;
+    return result;
   }
 
   /** Gets the html string of the printable table */
@@ -374,7 +465,6 @@ export class DtTableComponent implements AfterContentChecked, OnDestroy {
 
   /** Opens a new windows asking for printing the table */
   async print(): Promise<void> {
-    const pageStyles = document.head.getElementsByTagName('style');
     const pw = window.open();
     pw.document.write(`<html><head>
 ${this.printStyleUrl ? `<link rel="stylesheet" href="${this.printStyleUrl}">` : ''}
@@ -383,9 +473,5 @@ ${this.printStyleUrl ? `<link rel="stylesheet" href="${this.printStyleUrl}">` : 
     pw.document.close();
     pw.print();
     pw.close();
-  }
-
-  logChange($event: any): void {
-    console.log('$event: ', $event);
   }
 }

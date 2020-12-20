@@ -64,6 +64,11 @@ export class AppComponent {
       html: require('!raw-loader!./pages/group-by/group-by.component.html').default,
       ts: require('!raw-loader!./pages/group-by/group-by.component.ts').default
     },
+    '/column-filter': {
+      name: 'Column Filter',
+      html: require('!raw-loader!./pages/column-filter/column-filter.component.html').default,
+      ts: require('!raw-loader!./pages/column-filter/column-filter.component.ts').default
+    },
     '/print': {
       name: 'Print',
       html: require('!raw-loader!./pages/print/print.component.html').default,

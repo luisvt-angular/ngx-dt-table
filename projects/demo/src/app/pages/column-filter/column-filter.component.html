@@ -1,0 +1,37 @@
+<div>
+  <mat-button-toggle (change)="toggleFiltering($event, playersTable)">{{filteringAction}} Filtering</mat-button-toggle>
+  <button mat-raised-button *ngIf="filteringAction === 'End'" color="primary" style="margin-left: 15px" (click)="playersTable.applyFilters()">Search</button>
+</div>
+<dt-table #playersTable [data]="players">
+  <ng-template dtSortColumnIcon let-column>
+    <mat-icon *ngIf="column.sortable && column.sortDirection === 1">north</mat-icon>
+    <mat-icon *ngIf="column.sortable && column.sortDirection === -1">south</mat-icon>
+  </ng-template>
+
+  <dt-column field="id" header="Id"></dt-column>
+  <dt-column field="name" header="Name" comparison="*=" sortable>
+    <matx-input *dtColumnFilter="let controls" [formControl]="controls.name"></matx-input>
+  </dt-column>
+  <dt-column field="age" header="Age" comparison="<=>" sortable>
+    <div *dtColumnFilter="let controls" [formGroup]="controls.age"
+         style="display: flex; flex-direction: row; width: 100%">
+      <matx-input type="number" formControlName="min" min="0" max="100" style="flex: 1; min-width: 25px"></matx-input>
+      <span style="margin: auto"><=></span>
+      <matx-input type="number" formControlName="max" min="0" max="100" style="flex: 1; min-width: 25px"></matx-input>
+    </div>
+  </dt-column>
+  <dt-column field="club" header="Club" sortable>
+    <matx-select *dtColumnFilter="let controls"
+                 [formControl]="controls.club"
+                 [options]="['Barcelona', 'Real Madrid', 'Liverpool', 'Borussia Dortmund',
+                               'Manchester United', 'Manchester City', 'Juventus']"
+                 noneText="All"></matx-select>
+  </dt-column>
+  <dt-column field="national" header="National" sortable comparison="in">
+    <matx-select *dtColumnFilter="let controls"
+                 multiple
+                 [formControl]="controls.national"
+                 [options]="['Argentina', 'Brazil', 'Portugal', 'England',
+                               'Germany', 'France', 'Holland', 'Spain', 'Italy']"></matx-select>
+  </dt-column>
+</dt-table>

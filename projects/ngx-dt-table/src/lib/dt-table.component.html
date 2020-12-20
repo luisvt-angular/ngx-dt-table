@@ -9,6 +9,13 @@
   </div>
 </ng-template>
 
+<ng-template #filterColumns let-auxColumns>
+  <!-- auxColumns: DtColumnDirective[] -->
+  <div class="dt-header-cell" *ngFor="let column of auxColumns" [ngClass]="column.ngClass" [ngStyle]="column.columnNgStyle">
+    <ng-template [ngTemplateOutlet]="column.filterTemplate" [ngTemplateOutletContext]="{$implicit: filtersForm.controls}"></ng-template>
+  </div>
+</ng-template>
+
 <ng-template #bodyColumns let-auxColumns let-row="row">
   <!-- auxColumns: DtColumnDirective[] -->
   <!-- row: DtRow -->
@@ -74,6 +81,24 @@
                        [ngTemplateOutletContext]="{$implicit: frozenRightColumns}"></ng-template>
         </div>
       </div>
+
+      <form class="dt-row" *ngIf="showFilters" [formGroup]="filtersForm" (submit)="applyFilters()">
+        <div class="dt-table-frozen-left" *ngIf="selectable || rowDetail || frozenLeftColumns.length">
+          <div class="dt-header-cell dt-cell-expander" *ngIf="rowDetail"></div>
+          <div class="dt-header-cell dt-cell-select" *ngIf="selectable"></div>
+          <ng-template [ngTemplateOutlet]="filterColumns"
+                       [ngTemplateOutletContext]="{$implicit: frozenLeftColumns}"></ng-template>
+        </div>
+        <div class="dt-scrollable-columns">
+          <ng-template [ngTemplateOutlet]="filterColumns"
+                       [ngTemplateOutletContext]="{$implicit: scrollableColumns}"></ng-template>
+        </div>
+        <div class="dt-table-frozen-right">
+          <ng-template [ngTemplateOutlet]="filterColumns"
+                       [ngTemplateOutletContext]="{$implicit: frozenRightColumns}"></ng-template>
+        </div>
+        <button type="submit" hidden></button>
+      </form>
 
       <ng-template [ngIf]="loading">
         <ng-template [ngTemplateOutlet]="loadingTemplate"></ng-template>

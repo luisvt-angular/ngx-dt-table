@@ -4,6 +4,7 @@ import { DtCellDirective } from './dt-cell.directive';
 import { DtHeaderDirective } from './dt-header.directive';
 import { DtEditorDirective } from './dt-editor.directive';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { DtColumnFilterDirective } from './dt-column-filter.directive';
 
 export class DtColumn {}
 
@@ -130,6 +131,12 @@ export class DtColumnDirective extends DtColumn {
   get noPrintable(): boolean { return this._noPrintable; }
 
   @Input() set noPrintable(value: boolean) { this._noPrintable = coerceBooleanProperty(value); }
+
+  @ContentChild(DtColumnFilterDirective, {read: TemplateRef}) filterTemplate: TemplateRef<any>;
+
+  @Input() comparison: '==' | '!=' | '~=' | '*=' | '^=' | '$=' | '>' | '<' | '>=' | '<=' | '<=>' | 'in' | string = '==';
+
+  @Input() comparisonFn: ((item, filter) => boolean);
 }
 
 @Directive({selector: 'ng-template[dtColumn]', providers: [{provide: DtColumn, useExisting: DtColumnTemplateDirective}]})

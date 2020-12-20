@@ -14,6 +14,7 @@ Angular 11+ Datatable/Grid component for presenting large and complex data.
 8. [Editor Template](https://luisvt-angular.github.io/ngx-dt-table/#/editor-template)
 8. [Row Detail Template](https://luisvt-angular.github.io/ngx-dt-table/#/row-detail-template)
 8. [Group By](https://luisvt-angular.github.io/ngx-dt-table/#/group-by)
+8. [Column Filter](https://luisvt-angular.github.io/ngx-dt-table/#/column-filter)
 9. [Print](https://luisvt-angular.github.io/ngx-dt-table/#/print)
 
 ## Todos

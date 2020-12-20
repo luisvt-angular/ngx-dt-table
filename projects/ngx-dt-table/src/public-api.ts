@@ -5,6 +5,7 @@
 export * from './lib/compare';
 export * from './lib/dt-cell.directive';
 export * from './lib/dt-column.directive';
+export * from './lib/dt-column-filter.directive';
 export * from './lib/dt-editor.directive';
 export * from './lib/dt-expand-row-button.directive';
 export * from './lib/dt-group-header.directive';

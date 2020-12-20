@@ -17,7 +17,8 @@ const routes: Routes = [
     path: 'row-detail-template',
     loadChildren: () => import('./pages/row-detail-template/row-detail-template.module').then(m => m.RowDetailTemplateModule)
   },
-  {path: 'group-by', loadChildren: () => import('./pages/group-by/group-by.module').then(m => m.GroupByModule)}
+  {path: 'group-by', loadChildren: () => import('./pages/group-by/group-by.module').then(m => m.GroupByModule)},
+  { path: 'column-filter', loadChildren: () => import('./pages/column-filter/column-filter.module').then(m => m.ColumnFilterModule) }
 ];
 
 @NgModule({
