@@ -136,7 +136,7 @@ export class DtColumnDirective extends DtColumn {
 
   @Input() comparison: '==' | '!=' | '~=' | '*=' | '^=' | '$=' | '>' | '<' | '>=' | '<=' | '<=>' | 'in' | string = '==';
 
-  @Input() comparisonFn: ((item, filter) => boolean);
+  @Input() comparisonFn: (item, filter) => boolean;
 }
 
 @Directive({selector: 'ng-template[dtColumn]', providers: [{provide: DtColumn, useExisting: DtColumnTemplateDirective}]})
