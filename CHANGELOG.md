@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.0.0
+
+- Upgrade to angular 13
+
 ## 0.0.9
 
 - Upgrade to angular 12
